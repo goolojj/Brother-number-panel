@@ -1,0 +1,15 @@
+function makePrediction(period) {
+  fetch("https://goolojj.github.io/Brother-number-panel/document.html")
+    .then(res => res.text())
+    .then(html => {
+      let parser = new DOMParser();
+      let doc = parser.parseFromString(html, "text/html");
+      let result = doc.querySelector(".result-box span").innerText.trim();
+      document.getElementById("prediction").innerText = result;
+      recordHistory(period, result);
+    })
+    .catch(err => {
+      console.error("Error fetching signal:", err);
+      document.getElementById("prediction").innerText = "Error";
+    });
+}
